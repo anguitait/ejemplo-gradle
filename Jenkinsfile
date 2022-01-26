@@ -1,8 +1,8 @@
 pipeline {
     agent any
     environment {
-        NEXUS_USER         = credentials('nexus-user')
-        NEXUS_PASSWORD     = credentials('nexus-password')
+        NEXUS_USER         = credentials('user-nexus')
+        NEXUS_PASSWORD     = credentials('password-nexus')
     }
     stages {
         stage("Pipeline"){
@@ -26,7 +26,7 @@ pipeline {
                         withSonarQubeEnv('SonarQube') {
                             sh "echo 'Calling sonar by ID!'"
                             // Run Maven on a Unix agent to execute Sonar.
-                            sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build'
+                            sh 'gradle clean verify sonar:sonar -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build'
                         }
                     }
                     stage("Paso 3: Curl Springboot Gradle sleep 20"){
