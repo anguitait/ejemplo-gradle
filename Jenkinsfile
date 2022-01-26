@@ -12,9 +12,9 @@ pipeline {
                         checkout(
                             [$class: 'GitSCM',
                             //Acá reemplazar por el nonbre de branch
-                            branches: [[name: "feature/maven-gradle " ]],
+                            branches: [[name: "feature/ejemplo-gradle " ]],
                             //Acá reemplazar por su propio repositorio
-                            userRemoteConfigs: [[url: 'https://github.com/anguitait/maven-gradle.git']]])
+                            userRemoteConfigs: [[url: 'https://github.com/anguitait/ejemplo-gradle.git']]])
                     }
                     stage("Paso 1: Build && Test"){
                         sh "echo 'Build && Test!'"
@@ -26,7 +26,7 @@ pipeline {
                         withSonarQubeEnv('SonarQube') {
                             sh "echo 'Calling sonar by ID!'"
                             // Run Maven on a Unix agent to execute Sonar.
-                            sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=maven-gradle -Dsonar.java.binaries=build'
+                            sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build'
                         }
                     }
                     stage("Paso 3: Curl Springboot Gradle sleep 20"){
