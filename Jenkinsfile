@@ -12,7 +12,7 @@ pipeline {
                         checkout(
                             [$class: 'GitSCM',
                             //Acá reemplazar por el nonbre de branch
-                            branches: [[name: "feature/ejemplo-gradle " ]],
+                            branches: [[name: "feature/maven-gradle " ]],
                             //Acá reemplazar por su propio repositorio
                             userRemoteConfigs: [[url: 'https://github.com/anguitait/ejemplo-gradle.git']]])
                     }
