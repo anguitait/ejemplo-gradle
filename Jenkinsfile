@@ -18,7 +18,7 @@ pipeline {
                     }
                     stage("Paso 1: Build && Test"){
                         sh "echo 'Build && Test!'"
-                        sh "gradle clean build -x tests"
+                        sh "gradle build -x test"
                         // code
                     }
                     stage("Paso 2: Sonar - Análisis Estático"){
