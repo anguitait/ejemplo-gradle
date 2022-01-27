@@ -5,12 +5,27 @@ pipeline {
         NEXUS_PASSWORD     = credentials('password-nexus')
     }
     parameters {
-        choice (name: 'compileTool', choices: ['Maven', 'Gradle'], description: 'Maven o Gradle')
+        choice(
+            name: 'compileTool',
+            choices: ['Maven', 'Gradle'],
+            description: 'Maven o Gradle'
+        )
     }
     stages {
         stage("Pipeline"){
             steps {
                 script{
+                    switch(params.compileTool)
+                    {
+                        case 'Maven':
+                            def ejecucion = load 'maven.groovy'
+                            ejecucion.call()
+                        break;
+                        case 'Gradle':
+                            def ejecucion = load 'gradle.groovy'
+                            ejecucion.call()
+                        break;
+                    }
                     stage("Paso 0: Download Code and checkout"){
                         checkout(
                             [$class: 'GitSCM',
@@ -29,7 +44,7 @@ pipeline {
                         withSonarQubeEnv('SonarQube') {
                             sh "echo 'Calling sonar by ID!'"
                             // Run Maven on a Unix agent to execute Sonar.
-                            sh 'sonarqube -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build'
+                            sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=ejemplo-gradle'
                         }
                     }
                     stage("Paso 3: Curl Springboot Gradle sleep 20"){
