@@ -29,4 +29,12 @@ pipeline {
             }
         }
     }
+    post {
+        success {
+                slackSend (color: '#00FF00', message: "SUCCESS")
+        }
+        failure{
+                slackSend (color: '#FF0000', message: "FAILED")
+        }
+    }
 }
