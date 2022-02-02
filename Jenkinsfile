@@ -31,10 +31,10 @@ pipeline {
     }
     post {
         success {
-                slackSend (color: '#00FF00', message: "[Luis Anguita][${env.JOB_NAME}][${params.compileTool}]")
+                slackSend (color: '#00FF00', message: "[Luis Anguita][${env.JOB_NAME}][${params.compileTool}] Ejecución exitosa")
         }
         failure{
-                slackSend (color: '#FF0000', message: "[Luis Anguita][${env.JOB_NAME}][${params.compileTool}]")
+                slackSend (color: '#FF0000', message: "[Luis Anguita][${env.JOB_NAME}][${params.compileTool}] Ejecución fallida en stage ${env.CURRENT_STAGE}")
         }
     }
 }
